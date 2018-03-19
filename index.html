@@ -1,0 +1,201 @@
+<html>
+    <head>
+        <title>Contact Form</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+        <link href='custom.css' rel='stylesheet' type='text/css'>
+        <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    </head>
+    <style>
+    .preview{
+  margin: 10px 0;
+  padding: 5px;
+}
+.previewData img{
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin: 5px;
+} 
+.previewDetails{
+   display: inline-block;
+    float: left;
+    margin: 5px;
+    padding: 8px;
+}
+.detail{
+    font-family: arial;
+    padding: 5px;
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.previewControls{
+  display: inline-block;
+  float: left;
+  margin: 40px 30px;
+}
+</style>
+    <body ng-app="myApp">
+
+        <div ng-controller="myController as ctrl" class="container">
+
+          
+
+           
+
+
+                <div class="col-lg-12 ">
+
+                    <h1 >Sample Contact Application</h1>
+
+                     
+
+               
+
+                  
+
+                </div>
+
+          
+
+
+            <div class="col-lg-12">
+
+
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+              <div class="panel-heading"><span class="lead">List of Users </span></div>
+           <!--    <div class="tablecontainer table-responsive preview clearfix">
+                  <table class="table mb-0 table-striped m-b-0 f-14 zero-configuration" id="example"  cellspacing="0" width="100%">
+                      <thead>
+                          <tr>
+                              
+                              <th>Image</th>
+                           
+                              
+                              <th>Name</th>
+                             
+                         
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="u in ctrl.details track by $index">
+
+                            <td><img ng-src={{u.img}}></td>
+                              
+                              <td><span ng-bind="u.preferredFullName"></span></td>
+                     
+                              
+                            
+                              
+                          </tr>
+                      </tbody>
+                  </table>
+              </div> -->
+
+
+              <div class="preview clearfix">
+                  <div  class="previewData clearfix" ng-repeat="u in ctrl.details track by $index">
+                    <div  id="btnShow" ng-click="ctrl.edit(u.userId)">
+                    <img src={{u.img}}>
+                      <div class="detail"><b>Name : </b>{{u.preferredFullName}}</div>
+                      <!-- <div class="detail"><b>Type : </b>{{data.type}}</div>
+                      <div class="detail"><b>Size : </b> {{data.size}}</div> -->
+                    </div>
+                  </div>
+                    
+               </div>
+              <!--  <button id="btnShow" class="btn btn-primary btn-lg">Show Modal Popup</button> -->
+          </div>
+        </div>
+
+        <div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title" id="myModalLabel">Details</h4>
+</div>
+<div class="modal-body">
+ 
+    <div>{{ctrl.user.firstName}} </div>
+     <div>{{ctrl.user.lastName}} </div>
+      <div>{{ctrl.user.jobTitleName}} </div>
+       <div>{{ctrl.user.employeeCode}} </div>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+</div>
+</div>
+</div>
+</div>
+
+        </div>
+    
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
+      
+        <script src="http://code.angularjs.org/1.2.6/angular.js"></script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28//angular-route.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+        
+<script type="text/javascript">
+  $(function () {
+$("#btnShow").click(function(){
+$('#demoModal').modal('show');
+});
+});
+</script>
+        <script>
+
+            $(document).ready(function() {
+    $('#example').DataTable();
+} );
+
+
+         var ngApp = angular.module("myApp", []);
+
+ngApp.controller('myController', ['$http', function($http){
+  var thisCtrl = this;
+
+  this.route = 'data.json';
+  $http.get(thisCtrl.route)
+    .success(function(data){
+      thisCtrl.details= data.Employees;
+      console.log(data.Employees);
+    })
+    .error(function(data){
+      console.log("Error getting data from " + thisCtrl.route);
+    }); 
+
+
+
+    this.edit = function(ids){
+      $('#demoModal').modal('show');
+                  console.log('id to be edited', ids);
+                  for(var i = 0; i < thisCtrl.details.length; i++){
+                    console.log(thisCtrl.details[i].userId)
+                      if(thisCtrl.details[i].userId === ids) {
+                         thisCtrl.user = angular.copy(thisCtrl.details[i]);
+                         console.log(thisCtrl.user)
+                         break;
+                      }
+                  }
+              } 
+  
+}]);
+
+  </script>
+
+        
+    </body>
+</html>
