@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Contact Form</title>
+        <title>Contact</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -27,9 +27,9 @@
 }
 .detail{
     font-family: arial;
-    padding: 5px;
+    padding: 34px;
     overflow: hidden;
-    max-width: 200px;
+    /*max-width: 200px;*/
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -37,6 +37,14 @@
   display: inline-block;
   float: left;
   margin: 40px 30px;
+}
+.sp{
+  font-style: italic;
+  font-weight: bold;
+  margin-left: 10%;
+}
+.sp1{
+  margin-left: 30%;
 }
 </style>
     <body ng-app="myApp">
@@ -50,7 +58,7 @@
 
                 <div class="col-lg-12 ">
 
-                    <h1 >Sample Contact Application</h1>
+                    <h1 >Employee Information</h1>
 
                      
 
@@ -62,8 +70,8 @@
 
           
 
-
-            <div class="col-lg-12">
+                <div class="col-lg-3"></div>
+            <div class="col-lg-6">
 
 
             <div class="panel panel-default">
@@ -120,12 +128,18 @@
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <h4 class="modal-title" id="myModalLabel">Details</h4>
 </div>
+
 <div class="modal-body">
+
  
-    <div>{{ctrl.user.firstName}} </div>
-     <div>{{ctrl.user.lastName}} </div>
-      <div>{{ctrl.user.jobTitleName}} </div>
-       <div>{{ctrl.user.employeeCode}} </div>
+    <div><span class="sp">First Name:</span> <span class="sp1"> {{ctrl.user.firstName}}</span> </div>
+     <div><span class="sp">Last Name: </span><span class="sp1">{{ctrl.user.lastName}} </span></div>
+      <div><span class="sp">Job Title: </span><span class="sp1">{{ctrl.user.jobTitleName}}</span> </div>
+       <div><span class="sp">Employee Code: </span><span class="sp1">{{ctrl.user.employeeCode}}</span> </div>
+       <div><span class="sp">Phone Number: </span><span class="sp1">{{ctrl.user.phoneNumber}} </span></div>
+       <div><span class="sp">Email: </span><span class="sp1">{{ctrl.user.emailAddress}} </span></div>
+       <div><span class="sp">Region: </span><span class="sp1">{{ctrl.user.region}}</span> </div>
+       
 
 </div>
 <div class="modal-footer">
